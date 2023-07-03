@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>User list</title>
+        <link type="text/css" rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <div class="table-wrap">
+            <table class="table">
+                <tr>
+                    <th>利用者名</th>
+                    <th>生年月日</th>
+                    <th>リハビリの開始日</th>
+                    <th>介護保険の期限</th>
+                    <th>特定疾患の期限</th>
+                    <th>重症心身障害者の手帳の期限</th>
+                    <th>介護マネージャーの事業所</th>
+                    <th>介護マネージャーの担当者名</th>
+                    <th>要介護度</th>
+                    <th>生活保護の有無</th>
+                    <th>更新</th>
+                    <th>削除</th>
+                </tr>
+                <% function isWelfare(num) { if(num===1) { return '有' ; } else { return '無' ; } } %>
+                    <% users.forEach(function (value) { %>
+                        <tr>
+                            <td><a href="/detail/<%= value.id %>"><%= value.name %></a></td>
+                            <td><%= value.birthdate %></td>
+                            <td><%= value.rehabilitationStartDate %></td>
+                            <td><%= value.careInsuranceExpiration %></td>
+                            <td><%= value.specificDiseaseExpiration %></td>
+                            <td><%= value.severePhysicalDisabilityExpiration %></td>
+                            <td><%= value.careManagerOffice %></td>
+                            <td><%= value.careManagerName %></td>
+                            <td><%= value.careNeedsLevel %></td>
+                            <td><%- isWelfare(value.welfareAssistance) %></td>
+                            <td><a href="/edit/<%= value.id %>">更新</a></td>
+                            <td><a href="/delete/<%= value.id %>">削除</a></td>
+                        </tr>
+                        <% }); %>
+            </table>
+        </div>
+
+        <p><a href="/create">ユーザーの追加</a></p>
+    </body>
+
+</html>
