@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const app = express();
-const detail = require("./detail.json");
+// const detail = require("./detail.json");
 
 const port = 3000;
 
@@ -51,15 +51,28 @@ app.get("/create", (req, res) => {
     res.sendFile(path.join(__dirname, "html/form.html"));
 });
 
+// 課題③
+// app.get("/detail/:id", (req, res) => {
+//     const sql = "SELECT * FROM clients WHERE id = ?";
+//     con.query(sql, [req.params.id], function (err, result, fields) {
+//         if (err) throw err;
+//         const selectedUser = [];
+//         for (let index in detail) {
+//             if (String(detail[index].id) === req.params.id) selectedUser.push(detail[index]);
+//         }
+//         console.log(result)
+//         res.render("detail",  {selectedUser: selectedUser});
+//     });
+// });
+
+// 課題④
 app.get("/detail/:id", (req, res) => {
-    const sql = "SELECT * FROM clients WHERE id = ?";
+    const sql = "SELECT * FROM clients_detail WHERE id = ?";
     con.query(sql, [req.params.id], function (err, result, fields) {
         if (err) throw err;
         const selectedUser = [];
-        for (let index in detail) {
-            if (String(detail[index].id) === req.params.id) selectedUser.push(detail[index]);
-        }
-        res.render("detail", {selectedUser: selectedUser});
+        console.log(result);
+        res.render("detail", { selectedUser: result });
     });
 });
 
